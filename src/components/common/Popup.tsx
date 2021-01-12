@@ -43,7 +43,7 @@ const Popup: React.FC<Props> = ({todo, status}) => {
   return status === PopupStatus.Close ? (
     <></>
   ) : (
-    <PopupWrapper id="popup" onClick={handleClosePopup}>
+    <PopupWrapper id="popup">
       <TodoForm selectedTodo={selectedTodo} />
     </PopupWrapper>
   );

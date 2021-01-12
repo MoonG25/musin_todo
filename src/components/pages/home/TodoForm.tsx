@@ -15,6 +15,16 @@ const Form = styled.form`
   box-sizing: border-box;
   color: black;
   border-radius: 4px;
+
+  .todo-delete {
+    border: none;
+    cursor: pointer;
+    background: none;
+    font-size: 18px;
+    outline: none;
+    margin-bottom: 1em;
+    float: right;
+  }
 `;
 
 const initialFields = {
@@ -47,8 +57,7 @@ const TodoForm: React.FC<Props> = ({selectedTodo}) => {
       createdDate: Date.now(),
       isCompleted: false,
     }));
-    dispatch(closePopup());
-    setFields(initialFields);
+    handleClosePopup();
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement|HTMLSelectElement>) => {
@@ -63,14 +72,17 @@ const TodoForm: React.FC<Props> = ({selectedTodo}) => {
     const completedTodo: any = {...fields};
     completedTodo.isCompleted = true;
     dispatch(completeTodo(completedTodo));
-    dispatch(closePopup());
-    setFields(initialFields);
+    handleClosePopup();
   }
 
   const handleEditTodo = () => {
     const editedTodo: any = {...fields};
     editedTodo.id = selectedTodo?.id;
     dispatch(editTodo(editedTodo));
+    handleClosePopup();
+  }
+
+  const handleClosePopup = () => {
     dispatch(closePopup());
     setFields(initialFields);
   }
@@ -85,60 +97,63 @@ const TodoForm: React.FC<Props> = ({selectedTodo}) => {
   }, []);
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Input 
-        disabled={loading}
-        value={fields.title}
-        onChange={handleInputChange}
-        name="title" 
-        type="text" 
-        placeholder="할 일" 
-      />
-      <Input 
-        disabled={loading}
-        value={fields.contents}
-        onChange={handleInputChange}
-        name="contents" 
-        type="text" 
-        placeholder="내용" 
-      />
-      <Select
-        name="remind"
-        onChange={handleInputChange}>
-        <option value={0}>없음</option>
-        <option value={300}>5분</option>
-        <option value={600}>10분</option>
-        <option value={900}>15분</option>
-        <option value={1800}>30분</option>
-        <option value={3600}>60분</option>
-      </Select>
-      <Select 
-        name="level"
-        onChange={handleInputChange}>
-        <option value={0}>없음</option>
-        <option value={1}>조금 중요함</option>
-        <option value={2}>중요함</option>
-        <option value={3}>많이 중요함</option>
-      </Select>
-      <Input 
-        disabled={loading}
-        value={fields.endDate}
-        onChange={handleInputChange}
-        name="endDate" 
-        type="datetime-local" 
-        placeholder="종료일"
-      />
-      {
-        selectedTodo ? (
-          <>
-            <Button type="button" onClick={handleCompleteTodo}>완료</Button>
-            <Button type="button" onClick={handleEditTodo}>수정</Button>
-          </>
-        ) : (
-          <Button disabled={loading}>{loading ? <Spinner /> : '저장' }</Button>
-        )
-      }
-    </Form>
+    <>
+      <Form onSubmit={handleSubmit}>
+        <button type="button" className="todo-delete" onClick={handleClosePopup}>&times;</button>
+        <Input 
+          disabled={loading}
+          value={fields.title}
+          onChange={handleInputChange}
+          name="title" 
+          type="text" 
+          placeholder="할 일" 
+        />
+        <Input 
+          disabled={loading}
+          value={fields.contents}
+          onChange={handleInputChange}
+          name="contents" 
+          type="text" 
+          placeholder="내용" 
+        />
+        <Select
+          name="remind"
+          onChange={handleInputChange}>
+          <option value={0}>없음</option>
+          <option value={300}>5분</option>
+          <option value={600}>10분</option>
+          <option value={900}>15분</option>
+          <option value={1800}>30분</option>
+          <option value={3600}>60분</option>
+        </Select>
+        <Select 
+          name="level"
+          onChange={handleInputChange}>
+          <option value={0}>없음</option>
+          <option value={1}>조금 중요함</option>
+          <option value={2}>중요함</option>
+          <option value={3}>많이 중요함</option>
+        </Select>
+        <Input 
+          disabled={loading}
+          value={fields.endDate}
+          onChange={handleInputChange}
+          name="endDate" 
+          type="datetime-local" 
+          placeholder="종료일"
+        />
+        {
+          selectedTodo ? (
+            <>
+              <Button type="button" onClick={handleCompleteTodo}>완료</Button>
+              <Button type="button" onClick={handleEditTodo}>수정</Button>
+            </>
+          ) : (
+            <Button disabled={loading}>{loading ? <Spinner /> : '저장' }</Button>
+          )
+        }
+      </Form>
+    </>
   )
 }
 
