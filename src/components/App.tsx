@@ -1,9 +1,15 @@
 import React from 'react';
+import {ThemeProvider} from 'styled-components';
+import GlobalStyle from '../themes/global-style';
+import {theme} from '../themes/themes';
+import Home from './pages/home/Home';
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Home />
+    </ThemeProvider>
   );
 }
 
