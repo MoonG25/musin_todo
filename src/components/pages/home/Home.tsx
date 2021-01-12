@@ -78,7 +78,7 @@ const filterTodoList = (todoList: Todo[], todoKey: TodoKey) => {
       return todoList.filter(todo => todo.isCompleted === true);
     case TodoKey.Failed:
       return todoList.filter(todo => {
-        if (checkDeadline(todo.endDate)) return todo;
+        if (!todo.isCompleted && checkDeadline(todo.endDate)) return todo;
       });
     default:
       return todoList;

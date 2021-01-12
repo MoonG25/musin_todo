@@ -89,7 +89,7 @@
       "level": 0,
       "endDate": "2021-01-12T17:42",
       "createdDate": 1610440701407,
-      "isCompleted": false,
+      "isCompleted": true,
       "id": 10
     },
     {
@@ -99,7 +99,7 @@
       "level": 2,
       "endDate": "2021-01-12T18:05",
       "createdDate": 1610441683513,
-      "isCompleted": false,
+      "isCompleted": true,
       "id": 11
     }
   ]
