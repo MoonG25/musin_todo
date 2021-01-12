@@ -118,8 +118,10 @@ const TodoForm: React.FC<Props> = ({selectedTodo}) => {
         />
         <Select
           name="remind"
+          value={fields.remind}
           onChange={handleInputChange}>
-          <option value={0}>없음</option>
+          <option value={0} disabled selected>알림설정</option>
+          <option value={0}>알림없음</option>
           <option value={300}>5분</option>
           <option value={600}>10분</option>
           <option value={900}>15분</option>
@@ -128,8 +130,10 @@ const TodoForm: React.FC<Props> = ({selectedTodo}) => {
         </Select>
         <Select 
           name="level"
+          value={fields.level}
           onChange={handleInputChange}>
-          <option value={0}>없음</option>
+          <option value={0} disabled selected>우선순위</option>
+          <option value={0}>중요하지않음</option>
           <option value={1}>조금 중요함</option>
           <option value={2}>중요함</option>
           <option value={3}>많이 중요함</option>
